@@ -4,48 +4,39 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  Button,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
+import {CATEGORIES} from '../data/dummy-data';
 import Colors from '../constants/Colors';
 // import { FlatList } from 'react-navigation';
-import CATEGORIES from '../data/dummy-data';
 
 const CategoriesScreen = props => {
   const renderGridItem = itemData => {
-    console.log(itemData);
-    console.log('here', props);
     return (
-      // <Text>okk</Text>
-      // <ToucableOpacity
-      //   onPress={() => {
-      //     props.navigation.push('CategoryMeals');
-      //   }}>
       <TouchableOpacity
+        style={styles.gridItem}
         onPress={() => {
           props.navigation.navigate({
             routeName: 'CategoryMeals',
-            param: {
+            params: {
               categoryId: itemData.item.id,
             },
           });
         }}>
-        <View style={styles.gridItem}>
+        <View>
           <Text>{itemData.item.title}</Text>
         </View>
       </TouchableOpacity>
     );
   };
   return (
-    <>
-      {/* {console.log('cat', CATEGORIES)} */}
-      <FlatList
-        keyExtractor={(item, index) => item.id}
-        data={CATEGORIES}
-        renderItem={renderGridItem}
-        numColums={2}
-      />
-    </>
+    <FlatList
+      keyExtractor={(item, index) => item.id}
+      data={CATEGORIES}
+      renderItem={renderGridItem}
+      numColums={2}
+    />
   );
 };
 
