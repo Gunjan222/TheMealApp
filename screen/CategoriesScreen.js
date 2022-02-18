@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
+
+import CategoryGridTitle from '../components/CategoryGridTitle';
 import {CATEGORIES} from '../data/dummy-data';
 import Colors from '../constants/Colors';
 // import { FlatList } from 'react-navigation';
@@ -14,20 +9,18 @@ import Colors from '../constants/Colors';
 const CategoriesScreen = props => {
   const renderGridItem = itemData => {
     return (
-      <TouchableOpacity
-        style={styles.gridItem}
-        onPress={() => {
+      <CategoryGridTitle
+        title={itemData.item.title}
+        color={itemData.item.color}
+        onSelect={() => {
           props.navigation.navigate({
             routeName: 'CategoryMeals',
             params: {
               categoryId: itemData.item.id,
             },
           });
-        }}>
-        <View>
-          <Text>{itemData.item.title}</Text>
-        </View>
-      </TouchableOpacity>
+        }}
+      />
     );
   };
   return (
@@ -35,17 +28,13 @@ const CategoriesScreen = props => {
       keyExtractor={(item, index) => item.id}
       data={CATEGORIES}
       renderItem={renderGridItem}
-      numColums={2}
+      numColumns={2}
     />
   );
 };
 
 CategoriesScreen.navigationOptions = {
   headerTitle: 'Meal Categories',
-  headerStyle: {
-    backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
-  },
-  headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
 };
 
 const styles = StyleSheet.create({
@@ -54,10 +43,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  gridItem: {
+  container: {
     flex: 1,
-    margin: 15,
-    height: 150,
+    borderRadius: 10,
+    shadowColor: 'black',
+    shadowOpacity: 0.26,
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 10,
+    elevation: 3,
+    padding: 15,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
 });
 

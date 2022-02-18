@@ -9,16 +9,17 @@
 import React from 'react';
 // import {Node} from 'react';
 import {Text, View} from 'react-native';
+import {enableScreens} from 'react-native-screens';
 
 import MealsNavigator from './navigation/MealsNavigator';
 
+enableScreens();
+
 const App = () => {
-  return (
-    <MealsNavigator />
-    // <View>
-    //   <Text>The Meal App</Text>
-    // </View>
-  );
+  return <MealsNavigator />;
+  // <View>
+  //   <Text>The Meal App</Text>
+  // </View>
 };
 
 export default App;

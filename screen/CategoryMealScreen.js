@@ -1,10 +1,13 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
+// import {isSearchBarAvailableForCurrentPlatform} from 'react-native-screens';
+
 import {CATEGORIES} from '../data/dummy-data';
+import Colors from '../constants/Colors';
 
 const CategoryMealScreen = props => {
   const catId = props.navigation.getParam('categoryId');
-
+  // console.log('catId: ', catId);
   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
 
   return (
@@ -21,14 +24,16 @@ const CategoryMealScreen = props => {
   );
 };
 
-// CategoryMealScreen.navigationOptions = navigationData => {
-//   // console.log('navigatio Data: ', navigationData);
-//   const catId = navigationData.navigation.getParam('categoryId');
-//   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
-//   return {
-//     headerTitle: selectedCategory.title,
-//   };
-// };
+CategoryMealScreen.navigationOptions = navigationData => {
+  // console.log('navigatio Data: ', navigationData);
+  const catId = navigationData.navigation.getParam('categoryId');
+
+  const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
+
+  return {
+    headerTitle: selectedCategory.title,
+  };
+};
 
 const styles = StyleSheet.create({
   screen: {
