@@ -1,15 +1,14 @@
 import React from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {Text, FlatList, StyleSheet} from 'react-native';
 
-import CategoryGridTitle from '../components/CategoryGridTitle';
-import {CATEGORIES} from '../data/dummy-data';
-import Colors from '../constants/Colors';
-// import { FlatList } from 'react-navigation';
+import CATEGORIES from '../data/dummy-data';
+import CategoryGridTile from '../components/CategoryGridTile';
 
 const CategoriesScreen = props => {
   const renderGridItem = itemData => {
+    console.log('items', itemData);
     return (
-      <CategoryGridTitle
+      <CategoryGridTile
         title={itemData.item.title}
         color={itemData.item.color}
         onSelect={() => {
@@ -23,13 +22,16 @@ const CategoriesScreen = props => {
       />
     );
   };
+  console.log('Categories', CATEGORIES);
   return (
-    <FlatList
-      keyExtractor={(item, index) => item.id}
-      data={CATEGORIES}
-      renderItem={renderGridItem}
-      numColumns={2}
-    />
+    <>
+      <FlatList
+        keyExtractor={item => item.id}
+        data={CATEGORIES}
+        renderItem={renderGridItem}
+        numColumns={2}
+      />
+    </>
   );
 };
 
@@ -42,18 +44,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    borderRadius: 10,
-    shadowColor: 'black',
-    shadowOpacity: 0.26,
-    shadowOffset: {width: 0, height: 2},
-    shadowRadius: 10,
-    elevation: 3,
-    padding: 15,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
   },
 });
 

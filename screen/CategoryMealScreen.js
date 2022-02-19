@@ -1,34 +1,58 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, Button, FlatList, StyleSheet} from 'react-native';
 // import {isSearchBarAvailableForCurrentPlatform} from 'react-native-screens';
 
-import {CATEGORIES} from '../data/dummy-data';
-import Colors from '../constants/Colors';
+import {CATEGORIES, MEALS} from '../data/dummy-data';
+import MealItem from '../components/MealItem';
+// import Colors from '../constants/Colors';
+// import { MEALS } from '../data/dummy-data';
+// import { FlatList } from 'react-navigation';
+// import MEALS from '../data/dummy-data';
 
 const CategoryMealScreen = props => {
+  const renderMealItem = itemData => {
+    return (
+      <MealItem
+        title={itemData.item.title}
+        image={itemData.item.imageUrl}
+        duration={itemData.item.duration}
+        complexity={itemData.item.complexity}
+        affordability={itemData.item.affordability}
+        onSelectMeal={() => {
+          props.navigation.navigate({
+            routeName: 'MealDetail',
+            params: {
+              mealId: itemData.item.id,
+            },
+          });
+        }}
+      />
+    );
+  };
+
   const catId = props.navigation.getParam('categoryId');
-  // console.log('catId: ', catId);
-  const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
+  // const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
+  const displayedMeals = MEALS.filter(
+    meal => meal.categoryIds.indexOf(catId) >= 0,
+  );
 
   return (
     <View style={styles.screen}>
-      <Text> The Category Meal Screen!</Text>
-      <Text>{selectedCategory.title}</Text>
-      <Button
-        title="Go To Details"
-        onPress={() => {
-          props.navigation.navigate({routeName: 'MealDetail'});
-        }}
+      <FlatList
+        data={displayedMeals}
+        renderItem={renderMealItem}
+        keyExtractor={item => item.id}
+        style={{width: '100%'}}
       />
     </View>
   );
 };
 
 CategoryMealScreen.navigationOptions = navigationData => {
-  // console.log('navigatio Data: ', navigationData);
   const catId = navigationData.navigation.getParam('categoryId');
 
   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
+  console.log('catId ', cat.id);
 
   return {
     headerTitle: selectedCategory.title,
