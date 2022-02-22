@@ -10,7 +10,7 @@ import {
 // import {ScreenContainer} from 'react-native-screens';
 
 const CategoryGridTile = props => {
-  const TouchableCmp = TouchableOpacity;
+  let TouchableCmp = TouchableOpacity;
 
   if (Platform.OS === 'android' && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
@@ -32,7 +32,11 @@ const styles = StyleSheet.create({
     margin: 15,
     height: 150,
     borderRadius: 10,
-    overflow: 'hidden',
+    elevation: 8,
+    overflow:
+      Platform.OS === 'android' && Platform.Version >= 21
+        ? 'hidden'
+        : 'visible',
   },
   container: {
     flex: 1,
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowRadius: 10,
     shadowOffset: {width: 0, height: 2},
-    elevation: 3,
+
     padding: 15,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',

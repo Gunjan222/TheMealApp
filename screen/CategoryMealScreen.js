@@ -2,10 +2,10 @@ import React from 'react';
 import {View, Text, Button, FlatList, StyleSheet} from 'react-native';
 // import {isSearchBarAvailableForCurrentPlatform} from 'react-native-screens';
 
-import {CATEGORIES, MEALS} from '../data/dummy-data';
+import CATEGORIES, {MEALS} from '../data/dummy-data';
 import MealItem from '../components/MealItem';
 // import Colors from '../constants/Colors';
-// import { MEALS } from '../data/dummy-data';
+// import {MEALS} from '../data/dummy-data';
 // import { FlatList } from 'react-navigation';
 // import MEALS from '../data/dummy-data';
 
@@ -52,7 +52,7 @@ CategoryMealScreen.navigationOptions = navigationData => {
   const catId = navigationData.navigation.getParam('categoryId');
 
   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
-  console.log('catId ', cat.id);
+  // console.log('catId ', cat.id);
 
   return {
     headerTitle: selectedCategory.title,

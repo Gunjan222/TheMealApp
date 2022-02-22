@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   mealItem: {
     margin: 10,
     height: 200,
-    width: '100%',
+    width: '95%',
     backgroundColor: '#f5f5f5',
     borderRadius: 10,
     overflow: 'hidden',
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   title: {
+    // fontFamily: 'open-sans-bold',
     fontSize: 20,
     color: 'white',
     textAlign: 'center',

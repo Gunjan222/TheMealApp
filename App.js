@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import {Text} from 'react';
 // import {Node} from 'react';
 // import {Text, View} from 'react-native';
 import {enableScreens} from 'react-native-screens';
@@ -17,6 +18,7 @@ enableScreens();
 
 const App = () => {
   return <MealsNavigator />;
+  // <Text>Hello </Text>;
 };
 
 export default App;
