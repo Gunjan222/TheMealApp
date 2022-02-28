@@ -4,7 +4,7 @@ import {Text, FlatList, StyleSheet} from 'react-native';
 import CATEGORIES from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
 
-const CategoriesScreen = props => {
+const CategoriesScreen = ({navigation}) => {
   const renderGridItem = itemData => {
     console.log('items', itemData);
     return (
@@ -12,12 +12,7 @@ const CategoriesScreen = props => {
         title={itemData.item.title}
         color={itemData.item.color}
         onSelect={() => {
-          props.navigation.navigate({
-            routeName: 'CategoryMeals',
-            params: {
-              categoryId: itemData.item.id,
-            },
-          });
+          navigation.navigate('MealScreen', {categoryId: itemData.item.id});
         }}
       />
     );
