@@ -1,52 +1,41 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
+import 'react-native-gesture-handler';
 import React from 'react';
-// import {Text, View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
 import {enableScreens} from 'react-native-screens';
-import MyMealsFunction from './navigation/MealsNavigator';
+import NavigatorFunction from './navigation/MealsNavigator';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
 
-import MealsNavigator from './navigation/MealsNavigator';
-// import FavoritesScreen from './screen/FavoritesScreen';
-// import {Button} from 'react-native-vector-icons/Ionicons';
+// import MyFavNavigator from './navigation/MyFavNavigator';
 import FavoritesScreen from './screen/FavoritesScreen';
-// import MealDetailScreen from './screen/MealDetailScreen';
-import CategoriesScreen from './screen/CategoriesScreen';
-import CategoryMealScreen from './screen/CategoryMealScreen';
-import MealDetailScreen from './screen/MealDetailScreen';
-import Colors from './constants/Colors';
-// import MealsFavTabNavigator from './navigation/MealsNavigator';
-// import MyMealsFunction from './navigation/MealsNavigator';
+import MealDetailScreen from './screen/CategoryMealScreen';
+import FiltersScreen from './screen/FiltersScreen';
+import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
 
 enableScreens();
 
-const Stack = createNativeStackNavigator();
-
 const App = () => {
+  // const MainNavigator = createDrawerNavigator();
+  // function NavigatorFunction() {
+  //   return (
+  //     <MainNavigator.Navigator>
+  //       <MainNavigator.Screen name="MealsFav" component={FavoritesScreen} />
+  //       <MainNavigator.Screen name="Filters" component={FiltersScreen} />
+  //     </MainNavigator.Navigator>
+  //   );
+  // }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={MyMealsFunction} />
-        <Stack.Screen name="MealScreen" component={CategoryMealScreen} />
-        <Stack.Screen name="Details" component={MealDetailScreen} />
-      </Stack.Navigator>
-      {/* <MyMealsFunction /> */}
+      <NavigatorFunction />
     </NavigationContainer>
-    // <NavigationContainer>
-    //   <MealsFavTabNavigator.Navigator>
-    //     <MealsFavTabNavigator.Screen name="Favorite" component={Favorites} />
-    //   </MealsFavTabNavigator.Navigator>
-    // </NavigationContainer>
   );
+
+  // return <StackNavigationFunction />;
 };
+
+const styles = StyleSheet.create({
+  screen: {flex: 1, justifyContent: 'center', alignItem: 'center'},
+});
 
 export default App;

@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
 import MealItem from './MealItem';
 
-const MealList = ({route, navigation}) => {
+const MealList = props => {
+  // console.log('route', route);
   const renderMealItem = itemData => {
     return (
       <MealItem
@@ -12,7 +13,7 @@ const MealList = ({route, navigation}) => {
         complexity={itemData.item.complexity}
         affordability={itemData.item.affordability}
         onSelectMeal={() => {
-          navigation.navigate('Details', {
+          props.navigation.navigate('Details', {
             mealId: itemData.item.id,
           });
         }}
@@ -22,8 +23,9 @@ const MealList = ({route, navigation}) => {
 
   return (
     <View style={styles.list}>
+      {/* <Text>Your MealList Screen</Text> */}
       <FlatList
-        data={route.listData}
+        data={props.listData}
         renderItem={renderMealItem}
         keyExtractor={item => item.id}
         style={{width: '100%'}}

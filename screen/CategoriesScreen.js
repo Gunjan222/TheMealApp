@@ -1,5 +1,8 @@
 import React from 'react';
-import {Text, FlatList, StyleSheet} from 'react-native';
+import {Text, Button, FlatList, StyleSheet, View} from 'react-native';
+
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import CATEGORIES from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
@@ -30,8 +33,19 @@ const CategoriesScreen = ({navigation}) => {
   );
 };
 
-CategoriesScreen.navigationOptions = {
-  headerTitle: 'Meal Categories',
+CategoriesScreen.navigationOptions = navData => {
+  return {
+    headerTitle: 'Meal Categories',
+    headerLeft: () => (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Button
+          onPress={() => alert('This is a button!')}
+          title="Info"
+          color="#00cc00"
+        />
+      </View>
+    ),
+  };
 };
 
 const styles = StyleSheet.create({

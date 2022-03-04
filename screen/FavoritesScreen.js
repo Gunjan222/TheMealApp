@@ -1,12 +1,30 @@
 import React from 'react';
+import {View, Text, StyleSheet, Platform} from 'react-native';
+import Colors from '../constants/Colors';
 import MealList from '../components/MealList';
+import {MEALS} from '../data/dummy-data';
 
-const FavoritesScreen = props => {
-  return <MealList />;
+const FavoritesScreen = ({route, navigation}) => {
+  // console.log('navigation ', props);
+  const favMeals = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2');
+
+  return <MealList listData={favMeals} navigation={navigation} />;
 };
 
 FavoritesScreen.navigationOptions = {
   headerTitle: 'Your Favorites',
+  headerStyle: {
+    backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+  },
+  headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default FavoritesScreen;
