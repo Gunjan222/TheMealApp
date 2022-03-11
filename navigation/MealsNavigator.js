@@ -1,8 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {Platform, Button} from 'react-native';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../components/CustomHeaderButton';
 
-import {NavigationContainer} from '@react-navigation/native';
+// import {NavigationContainer} from '@react-navigation/native';
 
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -18,17 +20,80 @@ import FavoritesScreen from '../screen/FavoritesScreen';
 import FiltersScreen from '../screen/FiltersScreen';
 import Colors from '../constants/Colors';
 
+const Stack = createNativeStackNavigator();
+
+function StackNavigationFunction() {
+  // const mealId = route.params.mealId;
+  // console.log('props inside stackNav ', route);
+  // const toggleFavorite = props
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Main"
+        component={MyMealsFunction}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen name="MealScreen" component={CategoryMealScreen} />
+      <Stack.Screen
+        name="Details"
+        component={MealDetailScreen}
+        options={({route, navigation}) => ({
+          headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+              <Item
+                title="Favorite"
+                iconName="ios-star"
+                // {isFavorite ? 'ios-star' : 'ios-star-outline'}
+                // onPress={() =>
+                //   console.log(
+                //     'route',
+                //     route.params,
+                //     'navigation',
+                //     navigation.dispatch(toggleFavorite(mealId)),
+                //   )
+                // }
+
+                // getId={({route}) => route.toggleFavorite}
+                // onPress={toggleFavorite(route.params.mealId)}
+              />
+            </HeaderButtons>
+          ),
+        })}
+      />
+      {/* {props => <MealDetailScreen {...props} />} */}
+      {/* </Stack.Screen> */}
+    </Stack.Navigator>
+  );
+}
+
 const FavNavigator = createNativeStackNavigator();
 
 function MyFavNavigator() {
   return (
-    <FavNavigator.Navigator initialRouteName="Favorites">
+    <FavNavigator.Navigator
+      initialRouteName="Favorites"
+      screenOptions={({route, navigation}) => ({
+        headerLeft: () => (
+          <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+            <Item
+              title="menu"
+              iconName="ios-menu"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          </HeaderButtons>
+        ),
+      })}>
       <FavNavigator.Screen
         name="Favorites"
         component={FavoritesScreen}
-        options={({route}) => ({title: route.name})}
+        // options={({route}) => ({title: route.name})}
       />
-      <FavNavigator.Screen name="MealDetail" component={MealDetailScreen} />
+      <FavNavigator.Screen
+        name="MealDetail"
+        component={MealDetailScreen}
+        // options={({route}) => ({mealTitle: route.params.title}, {toggleFavorite: route.params.toggleFav})}
+      />
     </FavNavigator.Navigator>
   );
 }
@@ -46,24 +111,23 @@ function MyMealsFunction() {
       barStyle={{backgroundColor: '#694fad'}}
       screenOptions={({route, navigation}) => ({
         headerLeft: () => (
-          <Button
-            onPress={() => {
-              navigation.toggleDrawer();
-            }}
-            title="Menu"
-          />
+          <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+            <Item
+              title="menu"
+              iconName="ios-menu"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          </HeaderButtons>
         ),
         tabBarIcon: ({focused, color}) => {
           let iconName;
 
           if (route.name === 'Meals') {
-            iconName = Platform.OS === 'android' ? 'restaurant' : 'ios-add';
-          } else if (route.name === 'Favorites') {
             iconName =
-              Platform.OS === 'android' ? 'star' : 'ios-chevron-forward';
+              Platform.OS === 'android' ? 'restaurant' : 'md-restaurant';
+          } else if (route.name === 'Favorites') {
+            iconName = Platform.OS === 'android' ? 'star' : 'ios-star';
           }
-
-          // You can return any component that you like here!
           return <Icon name={iconName} size={25} color={color} />;
         },
         tabBarActiveTintColor: Colors.accentColor,
@@ -79,22 +143,6 @@ function MyMealsFunction() {
   );
 }
 
-const Stack = createNativeStackNavigator();
-
-function StackNavigationFunction() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Main"
-        component={MyMealsFunction}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen name="MealScreen" component={CategoryMealScreen} />
-      <Stack.Screen name="Details" component={MealDetailScreen} />
-    </Stack.Navigator>
-  );
-}
-
 const MainNavigator = createDrawerNavigator();
 function NavigatorFunction() {
   return (
@@ -105,7 +153,22 @@ function NavigatorFunction() {
         component={StackNavigationFunction}
         options={{headerShown: false, drawerLabel: 'Meals'}}
       />
-      <MainNavigator.Screen name="Filters" component={FiltersScreen} />
+      <MainNavigator.Screen
+        name="Filters"
+        component={FiltersScreen}
+        options={({route, navigation}) => ({
+          headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+              <Item
+                title="save"
+                iconName="ios-save"
+                onPress={() => console.log('saved filters', route)}
+                // onPress={navigation.getParam('save')}
+              />
+            </HeaderButtons>
+          ),
+        })}
+      />
     </MainNavigator.Navigator>
   );
 }

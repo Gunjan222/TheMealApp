@@ -5,14 +5,23 @@ import NavigatorFunction from './navigation/MealsNavigator';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
+import {createStore, combineReducers} from 'redux';
+import {Provider} from 'react-redux';
 
 // import MyFavNavigator from './navigation/MyFavNavigator';
 import FavoritesScreen from './screen/FavoritesScreen';
 import MealDetailScreen from './screen/CategoryMealScreen';
 import FiltersScreen from './screen/FiltersScreen';
 import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
+import mealsReducer from './store/reducers/meals';
 
 enableScreens();
+
+const rootReducer = combineReducers({
+  meals: mealsReducer,
+});
+
+const store = createStore(rootReducer);
 
 const App = () => {
   // const MainNavigator = createDrawerNavigator();
@@ -26,9 +35,11 @@ const App = () => {
   // }
 
   return (
-    <NavigationContainer>
-      <NavigatorFunction />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <NavigatorFunction />
+      </NavigationContainer>
+    </Provider>
   );
 
   // return <StackNavigationFunction />;

@@ -2,11 +2,15 @@ import React from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import Colors from '../constants/Colors';
 import MealList from '../components/MealList';
-import {MEALS} from '../data/dummy-data';
+import {useSelector} from 'react-redux';
+// import {MEALS} from '../data/dummy-data';
 
 const FavoritesScreen = ({route, navigation}) => {
+  const favMeals = useSelector(state => state.meals.favoriteMeals);
+
   // console.log('navigation ', props);
-  const favMeals = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2');
+  // const favMeals = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2');
+  // above line was to render some dummy meals not the actual data we want to obtain
 
   return <MealList listData={favMeals} navigation={navigation} />;
 };

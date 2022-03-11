@@ -6,9 +6,7 @@ const DefaultText = props => {
 };
 
 const styles = StyleSheet.create({
-  text: {
-    fontFamily: 'open-sans',
-  },
+  text: {fontSize: 13, fontWeight: 'normal'},
 });
 
 export default DefaultText;
