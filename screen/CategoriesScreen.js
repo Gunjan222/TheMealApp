@@ -15,7 +15,10 @@ const CategoriesScreen = ({navigation}) => {
         title={itemData.item.title}
         color={itemData.item.color}
         onSelect={() => {
-          navigation.navigate('MealScreen', {categoryId: itemData.item.id});
+          navigation.navigate('MealScreen', {
+            categoryId: itemData.item.id,
+            categoryTitle: itemData.item.title,
+          });
         }}
       />
     );

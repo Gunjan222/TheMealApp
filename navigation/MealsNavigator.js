@@ -34,16 +34,25 @@ function StackNavigationFunction() {
         component={MyMealsFunction}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="MealScreen" component={CategoryMealScreen} />
+      <Stack.Screen
+        name="MealScreen"
+        component={CategoryMealScreen}
+        options={({route}) => ({
+          title: route.params.categoryTitle,
+        })}
+      />
       <Stack.Screen
         name="Details"
         component={MealDetailScreen}
         options={({route, navigation}) => ({
+          title: route.params.mealTitle,
           headerRight: () => (
             <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
               <Item
                 title="Favorite"
-                iconName="ios-star"
+                iconName={route.params.isFav ? 'ios-star' : 'ios-star-outline'}
+                onPress={mealId => route.params.toggleFav(mealId)}
+
                 // {isFavorite ? 'ios-star' : 'ios-star-outline'}
                 // onPress={() =>
                 //   console.log(
@@ -53,7 +62,6 @@ function StackNavigationFunction() {
                 //     navigation.dispatch(toggleFavorite(mealId)),
                 //   )
                 // }
-
                 // getId={({route}) => route.toggleFavorite}
                 // onPress={toggleFavorite(route.params.mealId)}
               />
@@ -72,7 +80,7 @@ const FavNavigator = createNativeStackNavigator();
 function MyFavNavigator() {
   return (
     <FavNavigator.Navigator
-      initialRouteName="Favorites"
+      initialRouteName=" Your Favorites"
       screenOptions={({route, navigation}) => ({
         headerLeft: () => (
           <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
@@ -85,12 +93,12 @@ function MyFavNavigator() {
         ),
       })}>
       <FavNavigator.Screen
-        name="Favorites"
+        name="Your Favorites"
         component={FavoritesScreen}
         // options={({route}) => ({title: route.name})}
       />
       <FavNavigator.Screen
-        name="MealDetail"
+        name="Meal Detail"
         component={MealDetailScreen}
         // options={({route}) => ({mealTitle: route.params.title}, {toggleFavorite: route.params.toggleFav})}
       />
@@ -133,7 +141,11 @@ function MyMealsFunction() {
         tabBarActiveTintColor: Colors.accentColor,
         tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen name="Meals" component={CategoriesScreen} />
+      <Tab.Screen
+        name="Meals"
+        component={CategoriesScreen}
+        options={{headerShown: true}}
+      />
       <Tab.Screen
         name="Favorites"
         component={MyFavNavigator}

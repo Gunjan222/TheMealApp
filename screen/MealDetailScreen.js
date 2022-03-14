@@ -27,11 +27,13 @@ const ListItems = props => {
 const MealDetailScreen = ({route, navigation}) => {
   const availableMeals = useSelector(state => state.meals.meals);
   const mealId = route.params.mealId;
-  // const {mealId} = route.params;
+  const currentMealIsFavorite = useSelector(state =>
+    state.meals.favoriteMEALS.some(function (meal) {
+      return meal.id === mealId;
+    }),
+  );
+  console.log('currentMealIsFavorite');
 
-  // const currentMealIsFavorite = useSelector(state =>
-  //   state.meals.favoriteMeals.some(meal => meal.id === mealId),
-  // );
   const selectedMeal = availableMeals.find(meal => meal.id === mealId);
 
   const dispatch = useDispatch();
@@ -44,6 +46,10 @@ const MealDetailScreen = ({route, navigation}) => {
   useEffect(() => {
     navigation.setParams({toggleFav: toggleFavoriteHandler});
   }, [toggleFavoriteHandler]);
+
+  useEffect(() => {
+    navigation.setParams({isFav: currentMealIsFavorite});
+  }, [currentMealIsFavorite]);
 
   // const toggleFavorite = route.params.toggleFav;
   // console.log('toggleFavorite   ', toggleFavorite);
